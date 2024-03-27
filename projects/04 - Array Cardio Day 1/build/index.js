@@ -72,3 +72,10 @@ const data = [
     'car',
     'truck',
 ];
+const taskOne = (inventors) => inventors.filter((i) => i.year >= 1500 && i.year < 1600);
+const taskTwo = (inventors) => inventors.map((i) => `${i.first} ${i.last}`);
+const taskThree = (inventors) => inventors.toSorted((a, b) => (a.year > b.year ? 1 : -1));
+const taskFour = (inventors) => inventors.reduce((prev, current) => prev + (current.passed - current.year), 0);
+const taskFive = (inventors) => inventors.toSorted((a, b) => (a.passed - a.year > b.passed - b.year ? 1 : -1));
+const taskSix = (people) => people.toSorted((a, b) => (a.split(', ')[0] > b.split(', ')[0] ? 1 : -1));
+const taskSeven = (data) => data.reduce((prev, current) => (!prev.includes(current) ? prev.concat([current]) : prev), []);

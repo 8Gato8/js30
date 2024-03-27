@@ -1,4 +1,13 @@
-const inventors = [
+interface InventorInterface {
+  first: string;
+  last: string;
+  year: number;
+  passed: number;
+}
+
+type InventorsType = Array<InventorInterface>;
+
+const inventors: InventorsType = [
   { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
   { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
   { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
@@ -13,7 +22,7 @@ const inventors = [
   { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 },
 ];
 
-const people = [
+const people: Array<string> = [
   'Bernhard, Sandra',
   'Bethea, Erin',
   'Becker, Carl',
@@ -57,7 +66,7 @@ const people = [
   'Biondo, Frank',
 ];
 
-const data = [
+const data: Array<string> = [
   'car',
   'car',
   'truck',
@@ -73,3 +82,26 @@ const data = [
   'car',
   'truck',
 ];
+
+const taskOne = (inventors: InventorsType) =>
+  inventors.filter((i) => i.year >= 1500 && i.year < 1600);
+
+const taskTwo = (inventors: InventorsType) => inventors.map((i) => `${i.first} ${i.last}`);
+
+const taskThree = (inventors: InventorsType) =>
+  inventors.toSorted((a, b) => (a.year > b.year ? 1 : -1));
+
+const taskFour = (inventors: InventorsType) =>
+  inventors.reduce((prev, current) => prev + (current.passed - current.year), 0);
+
+const taskFive = (inventors: InventorsType) =>
+  inventors.toSorted((a, b) => (a.passed - a.year > b.passed - b.year ? 1 : -1));
+
+const taskSix = (people: Array<string>) =>
+  people.toSorted((a, b) => (a.split(', ')[0] > b.split(', ')[0] ? 1 : -1));
+
+const taskSeven = (data: Array<string>) =>
+  data.reduce(
+    (prev: Array<string>, current) => (!prev.includes(current) ? prev.concat([current]) : prev),
+    [],
+  );
