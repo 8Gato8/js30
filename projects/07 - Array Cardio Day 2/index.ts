@@ -1,3 +1,13 @@
+interface PersonInterface {
+  name: string;
+  year: number;
+}
+
+interface CommentsInterface {
+  text: string;
+  id: number;
+}
+
 const people = [
   { name: 'Wes', year: 1988 },
   { name: 'Kait', year: 1986 },
@@ -13,14 +23,13 @@ const comments = [
   { text: 'Nice Nice Nice!', id: 542328 },
 ];
 
-// Some and Every Checks
-// Array.prototype.some() // is at least one person 19 or older?
-// Array.prototype.every() // is everyone 19 or older?
+const taskOne = (people: Array<PersonInterface>) =>
+  people.some((p) => new Date().getFullYear() - p.year >= 19);
+const taskTwo = (people: Array<PersonInterface>) =>
+  people.every((p) => new Date().getFullYear() - p.year >= 19);
 
-// Array.prototype.find()
-// Find is like filter, but instead returns just the one you are looking for
-// find the comment with the ID of 823423
-
-// Array.prototype.findIndex()
-// Find the comment with this ID
-// delete the comment with the ID of 823423
+const taskThree = (comments: Array<CommentsInterface>) => comments.find((c) => c.id === 823423);
+const taskFour = (comments: Array<CommentsInterface>) => {
+  const index = comments.findIndex((c) => c.id === 823423);
+  return comments.toSpliced(index, 1);
+};
