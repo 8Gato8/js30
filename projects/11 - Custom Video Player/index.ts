@@ -3,6 +3,7 @@ const video = document.querySelector('video') as VideoType;
 const toggleButton = document.querySelector('.toggle') as HTMLButtonElement;
 const progressBar = document.querySelector('.progress') as HTMLDivElement;
 const progressBarFilled = document.querySelector('.progress__filled') as HTMLDivElement;
+const fullscreenButton = document.querySelector('.player__button_fullscreen') as HTMLButtonElement;
 
 interface VideoInterface {
   [index: string]: string | number;
@@ -59,6 +60,10 @@ const scrub = (e: MouseEvent) => {
   video.currentTime = scrubTime;
 };
 
+const openFullscreen = () => {
+  player.classList.toggle('player_fullscreen');
+};
+
 player.addEventListener('click', handleTogglePlay);
 player.addEventListener('click', handleSkip);
 
@@ -73,3 +78,5 @@ progressBar.addEventListener('mouseup', handleMouseUp);
 progressBar.addEventListener('mousemove', (e: MouseEvent) => isMouseDown && scrub(e));
 
 video.addEventListener('timeupdate', handleProgress);
+
+fullscreenButton.addEventListener('click', openFullscreen);
