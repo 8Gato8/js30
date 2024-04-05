@@ -18,17 +18,17 @@ function debounce(func, wait = 20, immediate = true) {
     };
 }
 const sliderImages = document.querySelectorAll('.slide-in');
+for (let sliderImage of sliderImages) {
+    const slideInAt = sliderImage.offsetTop - sliderImage.height;
+    const imageBottom = sliderImage.offsetTop + sliderImage.height * 2;
+    sliderImage.dataset.slideInAt = slideInAt.toString();
+    sliderImage.dataset.imageBottom = imageBottom.toString();
+}
 const checkSlide = () => {
-    sliderImages.forEach((sliderImage) => {
-        const slideInAt = sliderImage.offsetTop - sliderImage.height;
-        const imageBottom = sliderImage.offsetTop + sliderImage.height * 2;
-        const isShown = window.scrollY >= slideInAt && window.scrollY < imageBottom;
-        if (isShown) {
-            sliderImage.classList.add('active');
-        }
-        else {
-            sliderImage.classList.remove('active');
-        }
-    });
+    for (let sliderImage of sliderImages) {
+        const isShown = window.scrollY >= parseInt(sliderImage.dataset.slideInAt) &&
+            window.scrollY < parseInt(sliderImage.dataset.imageBottom);
+        sliderImage.classList.toggle('active', isShown);
+    }
 };
 window.addEventListener('scroll', debounce(checkSlide, 10));
