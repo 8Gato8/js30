@@ -74,8 +74,15 @@ form {
   margin-top: 20px;
 }
 
-form input {
+form input,
+button {
   padding: 10px;
   outline: 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.additional-buttons {
+  display: flex;
+  column-gap: 5px;
+  margin-top: 20px;
 }

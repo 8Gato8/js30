@@ -7,8 +7,10 @@ interface ItemInterface {
 const form = document.querySelector('form') as HTMLFormElement;
 const itemsList = document.querySelector('.plates') as HTMLUListElement;
 const addItemInput = document.querySelector('[name=item]') as HTMLInputElement;
+const resetButton = document.querySelector('[name=reset]') as HTMLButtonElement;
+const deleteButton = document.querySelector('[name=delete]') as HTMLButtonElement;
 
-const items: Array<ItemInterface> = JSON.parse(localStorage.getItem('items')) || [];
+let items: Array<ItemInterface> = JSON.parse(localStorage.getItem('items')) || [];
 
 const createItemTemplate = (item: ItemInterface) => {
   if (items.length < 1) {
@@ -24,11 +26,18 @@ const createItemTemplate = (item: ItemInterface) => {
   <li>
     <input type="checkbox" data-index=${item.id} id="item${item.id}" ${item.done ? 'checked' : ''}>
     <label for="item${item.id}">${item.text}</label>
+    <button data-index=${item.id} onclick="handleDeleteOne(event)">Удалить</button>
   </li>`;
 };
 
 const addTemplateStringAsHTML = (itemTemplate: string) => {
   itemsList.insertAdjacentHTML('beforeend', itemTemplate);
+};
+
+const saveItemsToLocalStorage = (items: Array<ItemInterface>) => {
+  const newItemsString = JSON.stringify(items);
+
+  localStorage.setItem('items', newItemsString);
 };
 
 const renderItems = () => {
@@ -61,12 +70,6 @@ const handleSubmit = (e: SubmitEvent) => {
   addItemInput.value = '';
 };
 
-const saveItemsToLocalStorage = (items: Array<ItemInterface>) => {
-  const newItemsString = JSON.stringify(items);
-
-  localStorage.setItem('items', newItemsString);
-};
-
 const handleToggle = (e: MouseEvent) => {
   const target = e.target as HTMLElement;
 
@@ -81,5 +84,41 @@ const handleToggle = (e: MouseEvent) => {
   saveItemsToLocalStorage(items);
 };
 
+function handleDeleteOne(e: MouseEvent) {
+  const target = e.target as HTMLButtonElement;
+  if (target.tagName !== 'BUTTON') return;
+  const currentTarget = e.currentTarget as HTMLUListElement;
+  const id = target.dataset.index;
+
+  const elementToDelete = currentTarget.querySelector(`[id=item${id}]`);
+  console.log(elementToDelete);
+  elementToDelete.parentElement.remove();
+
+  items = items.filter((i) => i.id !== +id);
+  saveItemsToLocalStorage(items);
+}
+
+const handleResetAll = () => {
+  const checkboxes = document.querySelectorAll('[type=checkbox]') as NodeListOf<HTMLInputElement>;
+
+  for (let i = 0; i < items.length; i++) {
+    items[i].done = false;
+    checkboxes[i].checked = false;
+  }
+
+  saveItemsToLocalStorage(items);
+};
+
+const handleDeleteAll = () => {
+  items = [];
+  itemsList.innerHTML = '';
+  localStorage.clear();
+};
+
 form.addEventListener('submit', handleSubmit);
+
 itemsList.addEventListener('click', handleToggle);
+itemsList.addEventListener('click', handleDeleteOne);
+
+resetButton.addEventListener('click', handleResetAll);
+deleteButton.addEventListener('click', handleDeleteAll);
