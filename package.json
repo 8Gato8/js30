@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "browser-sync start --directory --server --files \"*.css, *.html, *.js\""
+  },
   "devDependencies": {
     "browser-sync": "^2.12.5 <2.23.2",
     "typescript": "^5.4.3"
