@@ -26,5 +26,14 @@ const toggle = (startOver = true) => {
         speechSynthesis.speak(msg);
     }
 };
+const setOptions = (event) => {
+    const currentTarget = event.currentTarget;
+    msg[currentTarget.name] = currentTarget.value;
+    console.log(msg);
+    toggle();
+};
 speechSynthesis.addEventListener('voiceschanged', populateVoices);
 voicesDropdown.addEventListener('change', setVoice);
+options.forEach((option) => option.addEventListener('change', setOptions));
+speakButton.addEventListener('click', () => toggle());
+stopButton.addEventListener('click', () => toggle(false));
