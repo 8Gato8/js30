@@ -1,3 +1,3 @@
-const holes = document.querySelectorAll('.hole');
-const scoreBoard = document.querySelector('.score');
-const moles = document.querySelectorAll('.mole');
+const holes = document.querySelectorAll('.hole') as NodeListOf<HTMLDivElement>;
+const scoreBoard = document.querySelector('.score') as HTMLSpanElement;
+const moles = document.querySelectorAll('.mole') as NodeListOf<HTMLDivElement>;
