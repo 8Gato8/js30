@@ -6,7 +6,7 @@ type TRandomTime<T> = (min: T, max: T) => T;
 /* type TRandomHole */
 
 const randomTime: TRandomTime<number> = (min, max) => {
-  return Math.random() * (max - min) + min;
+  return Math.round(Math.random() * (max - min) + min);
 };
 
 const randomHole = (holes: NodeListOf<HTMLDivElement>) => {
