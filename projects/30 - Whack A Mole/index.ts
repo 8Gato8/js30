@@ -5,7 +5,7 @@ const moles = document.querySelectorAll('.mole') as NodeListOf<HTMLDivElement>;
 type TRandomTime<T> = (min: T, max: T) => T;
 
 let lastHole: HTMLDivElement;
-let timeUp: boolean;
+let timeUp = true;
 let score = 0;
 
 const randomTime: TRandomTime<number> = (min, max) => {
@@ -31,11 +31,16 @@ const peep = () => {
 };
 
 const startGame = () => {
+  if (!timeUp) return;
   scoreBoard.textContent = '0';
   timeUp = false;
   score = 0;
   peep();
   setTimeout(() => (timeUp = true), 10000);
+};
+
+const stopGame = () => {
+  timeUp = true;
 };
 
 const bonk = (e: MouseEvent) => {
