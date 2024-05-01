@@ -28,3 +28,10 @@ const peep = () => {
     if (!timeUp) peep();
   }, time);
 };
+
+const startGame = () => {
+  scoreBoard.textContent = '0';
+  timeUp = false;
+  peep();
+  setTimeout(() => (timeUp = true), 10000);
+};
