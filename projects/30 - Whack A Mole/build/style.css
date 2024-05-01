@@ -23,6 +23,21 @@ h1 {
   margin-bottom: 0;
 }
 
+.start-button {
+  display: block;
+  padding: 0;
+  border: 0;
+  font-size: 8rem;
+  font-family: inherit;
+  margin: 0 auto;
+  background: transparent;
+  border-radius: 1rem;
+}
+
+.start-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .score {
   background: rgba(255, 255, 255, 0.2);
   padding: 0 3rem;
