@@ -5,6 +5,7 @@ const moles = document.querySelectorAll('.mole') as NodeListOf<HTMLDivElement>;
 type TRandomTime<T> = (min: T, max: T) => T;
 
 let lastHole: HTMLDivElement;
+let timeUp: boolean;
 
 const randomTime: TRandomTime<number> = (min, max) => {
   return Math.round(Math.random() * (max - min) + min);
@@ -16,4 +17,14 @@ const randomHole = (holes: NodeListOf<HTMLDivElement>) => {
   if (lastHole === hole) return randomHole(holes);
   lastHole = hole;
   return hole;
+};
+
+const peep = () => {
+  const time = randomTime(200, 1000);
+  const hole = randomHole(holes);
+  hole.classList.add('up');
+  setTimeout(() => {
+    hole.classList.remove('up');
+    if (!timeUp) peep();
+  }, time);
 };
